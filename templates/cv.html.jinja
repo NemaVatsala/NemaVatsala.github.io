@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CV — Vatsala Nema</title>
+<title>CV — {{ profile.name }}</title>
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -443,10 +443,16 @@ nav {
 <!-- PDF HINT BANNER -->
 <div class="pdf-banner" id="pdf-banner">
   <span class="pdf-banner-text">Prefer a document?</span>
+  {% if cv_pdf_exists %}
   <a href="assets/pdf/cv.pdf" download class="pdf-banner-link">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
     Download PDF
   </a>
+  {% else %}
+  <span style="color:rgba(249,247,255,0.35);font-size:0.58rem;">
+    Drop your CV at assets/pdf/cv.pdf to enable PDF download
+  </span>
+  {% endif %}
   <button class="pdf-banner-dismiss" onclick="document.getElementById('pdf-banner').remove()" title="Dismiss">✕</button>
 </div>
 
@@ -457,17 +463,24 @@ nav {
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       Back
     </a>
-    <span class="nav-title">Vatsala Nema — CV</span>
+    <span class="nav-title">{{ profile.name }} — CV</span>
   </div>
   <div class="nav-right">
     <button class="btn-print" onclick="window.print()">
       <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       Print
     </button>
+    {% if cv_pdf_exists %}
     <a href="assets/pdf/cv.pdf" download class="btn-pdf">
       <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
       Download PDF
     </a>
+    {% else %}
+    <span class="no-pdf-hint">
+      <svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      No PDF — add assets/pdf/cv.pdf
+    </span>
+    {% endif %}
   </div>
 </nav>
 
@@ -477,104 +490,83 @@ nav {
   <!-- HEADER -->
   <header class="cv-header">
     <div>
+      {% set parts = profile.name.split(' ') %}
       <div class="cv-name">
-        Vatsala<span class="line2">Nema</span>
+        {{ parts[0] }}<span class="line2">{{ parts[1:] | join(' ') }}</span>
       </div>
     </div>
     <div class="cv-meta">
-      <div class="cv-meta-line">PhD Student · Cognitive Science</div>
-      <div class="cv-meta-line">Johns Hopkins University · Baltimore, US</div>
-      <div class="cv-meta-line">Advised by Prof. Leyla Isik</div>
+      <div class="cv-meta-line">{{ profile.status }} · {{ profile.department }}</div>
+      <div class="cv-meta-line">{{ profile.institution }} · {{ profile.location }}</div>
+      {% if profile.advisor %}
+      <div class="cv-meta-line">Advised by {{ profile.advisor.name }}</div>
+      {% endif %}
       <div class="cv-meta-line" style="margin-top:0.4rem;">
-        <a href="mailto:vatsala.nema@gmail.com">vatsala.nema@gmail.com</a>
+        <a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>
       </div>
+      {% if profile.contact.website %}
       <div class="cv-meta-line">
-        <a href="https://NemaVatsala.com" target="_blank">NemaVatsala.com</a>
+        <a href="{{ profile.contact.website }}" target="_blank">{{ profile.contact.website | replace('https://','') }}</a>
       </div>
+      {% endif %}
+      {% if profile.contact.github %}
       <div class="cv-meta-line">
-        <a href="https://github.com/NemaVatsala" target="_blank">github.com/NemaVatsala</a>
+        <a href="https://github.com/{{ profile.contact.github }}" target="_blank">github.com/{{ profile.contact.github }}</a>
       </div>
+      {% endif %}
     </div>
   </header>
 
   <!-- EDUCATION -->
   <div class="cv-section" style="--delay:0.15s">
     <div class="cv-section-head">Education</div>
+    {% for edu in profile.education %}
     <div class="cv-row">
       <div class="cv-row-main">
-        <div class="cv-role-name">PhD, Cognitive Science</div>
-        <div class="cv-row-org">Johns Hopkins University</div>
+        <div class="cv-role-name">{{ edu.degree }}</div>
+        <div class="cv-row-org">{{ edu.institution }}{% if edu.gpa %} · GPA {{ edu.gpa }}{% endif %}</div>
       </div>
-      <div class="cv-row-date">2025 –</div>
+      <div class="cv-row-date">{{ edu.year }}</div>
     </div>
-    <div class="cv-row">
-      <div class="cv-row-main">
-        <div class="cv-role-name">BS-MS, Electrical Engineering & Computer Science</div>
-        <div class="cv-row-org">IISER Bhopal · GPA 8.01/10</div>
-      </div>
-      <div class="cv-row-date">2019 – 2024</div>
-    </div>
+    {% endfor %}
   </div>
 
   <!-- RESEARCH POSITIONS -->
   <div class="cv-section" style="--delay:0.22s">
     <div class="cv-section-head">Research Experience</div>
+    {% for pos in experience.positions %}
     <div class="cv-row">
       <div class="cv-row-main">
-        <div class="cv-role-name">PhD Student</div>
-        <div class="cv-row-org">Isik Lab · Johns Hopkins University · Baltimore, US</div>
-        <div class="cv-row-detail">Advised by Prof. Leyla Isik. Research on visual intelligence, neural representations, and the interface between human and machine perception.
-</div>
+        <div class="cv-role-name">{{ pos.role }}</div>
+        <div class="cv-row-org">{{ pos.org }} · {{ pos.location }}</div>
+        <div class="cv-row-detail">{{ pos.detail }}</div>
       </div>
-      <div class="cv-row-date">2025 –</div>
+      <div class="cv-row-date">{{ pos.date }}</div>
     </div>
-    <div class="cv-row">
-      <div class="cv-row-main">
-        <div class="cv-role-name">Lab Manager</div>
-        <div class="cv-row-org">Serre Lab · Brown University · Providence, US</div>
-        <div class="cv-row-detail">Foveation-inspired bio-plausible scale-invariant models; psychophysics experiments and spatial frequency alignment between humans and models.
-</div>
-      </div>
-      <div class="cv-row-date">Sep 2024 – May 2025</div>
-    </div>
+    {% endfor %}
   </div>
 
   <!-- PUBLICATIONS -->
   <div class="cv-section" style="--delay:0.29s">
     <div class="cv-section-head">Publications</div>
+    {% for pub in publications %}
     <div class="pub-row">
-      <div class="pub-row-num">01</div>
+      <div class="pub-row-num">{{ "%02d"|format(loop.index) }}</div>
       <div>
         <div class="pub-row-title">
-Color Bias: A Mechanistic Analysis          <span class="pub-badge-inline ">Oral</span>
+          {% if pub.url %}<a href="{{ pub.url }}" target="_blank">{{ pub.title }}</a>
+          {% else %}{{ pub.title }}{% endif %}
+          <span class="pub-badge-inline {{ 'muted' if pub.status == 'inprep' else '' }}">{{ pub.badge }}</span>
         </div>
         <div class="pub-row-authors">
-            <span class="me">Vatsala Nema</span>,             <span class="">Vineeth Balasubramanian</span>        </div>
-        <div class="pub-row-venue">CCN'24 · ICML'24 QinAI Workshop</div>
-      </div>
-    </div>
-    <div class="pub-row">
-      <div class="pub-row-num">02</div>
-      <div>
-        <div class="pub-row-title">
-Modeling Neural Dynamics Using Periodic Structured State Space Model          <span class="pub-badge-inline ">Paper</span>
+          {% for author in pub.authors %}
+            <span class="{{ 'me' if author == profile.name else '' }}">{{ author }}</span>{% if not loop.last %}, {% endif %}
+          {% endfor %}
         </div>
-        <div class="pub-row-authors">
-            <span class="">Pranjal Garg</span>,             <span class="me">Vatsala Nema</span>        </div>
-        <div class="pub-row-venue">NeurIPS'24 WiML · Neuromonster'25</div>
+        <div class="pub-row-venue">{{ pub.venue }}</div>
       </div>
     </div>
-    <div class="pub-row">
-      <div class="pub-row-num">03</div>
-      <div>
-        <div class="pub-row-title">
-Mapping Belief Dynamics in Interacting Online Networks          <span class="pub-badge-inline muted">In Prep</span>
-        </div>
-        <div class="pub-row-authors">
-            <span class="me">Vatsala Nema</span>,             <span class="">Aayushi Vishnoi</span>,             <span class="">Mirta Galesic</span>        </div>
-        <div class="pub-row-venue">Manuscript in Preparation</div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 
   <!-- SKILLS -->
@@ -583,70 +575,61 @@ Mapping Belief Dynamics in Interacting Online Networks          <span class="pub
     <div class="skill-row">
       <span class="skill-label">Languages</span>
       <div class="skill-tags">
-<span class="skill-tag">Python</span><span class="skill-tag">C</span><span class="skill-tag">Java</span><span class="skill-tag">R</span>      </div>
+        {% for s in profile.skills.languages %}<span class="skill-tag">{{ s }}</span>{% endfor %}
+      </div>
     </div>
     <div class="skill-row">
       <span class="skill-label">Frameworks</span>
       <div class="skill-tags">
-<span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">CUDA</span><span class="skill-tag">Keras</span>      </div>
+        {% for s in profile.skills.frameworks %}<span class="skill-tag">{{ s }}</span>{% endfor %}
+      </div>
     </div>
     <div class="skill-row">
       <span class="skill-label">Tools</span>
       <div class="skill-tags">
-<span class="skill-tag">Bash</span><span class="skill-tag">MySQL</span><span class="skill-tag">MATLAB</span>      </div>
+        {% for s in profile.skills.tools %}<span class="skill-tag">{{ s }}</span>{% endfor %}
+      </div>
     </div>
   </div>
 
   <!-- AWARDS -->
   <div class="cv-section" style="--delay:0.43s">
     <div class="cv-section-head">Awards &amp; Grants</div>
+    {% for award in experience.awards %}
     <div class="award-row">
       <div class="award-dot"></div>
-      <div class="award-text">MITACS Globalink Scholarship for summer research at INRS Montréal</div>
+      <div class="award-text">{{ award }}</div>
     </div>
-    <div class="award-row">
-      <div class="award-dot"></div>
-      <div class="award-text">Travel grants: NeurIPS'24, CoSyNe'24, Google Research Week 2023, ACML 2022, LOGML, SFI Complexity School</div>
-    </div>
-    <div class="award-row">
-      <div class="award-dot"></div>
-      <div class="award-text">State Bank of India Undergraduate Scholarship (5 years)</div>
-    </div>
-    <div class="award-row">
-      <div class="award-dot"></div>
-      <div class="award-text">Selected for Bernstein Center Pre-doctoral Program · TU Berlin 2024</div>
-    </div>
-    <div class="award-row">
-      <div class="award-dot"></div>
-      <div class="award-text">Runner-up · Allen NLP Hackathon</div>
-    </div>
-    <div class="award-row">
-      <div class="award-dot"></div>
-      <div class="award-text">Finalist · Curveball Entrepreneurship Competition (Agroventures)</div>
-    </div>
+    {% endfor %}
   </div>
 
   <!-- SERVICE -->
   <div class="cv-section" style="--delay:0.50s">
     <div class="cv-section-head">Academic Service</div>
-    <div class="service-text">Reviewer: CVPR'26, NeurIPS'24, ICML'24 MechInterp</div>
-    <div class="service-text">NAACL'24/'25 (Queer in AI), AISTATS'23, CVPR'24</div>
+    {% for s in profile.service %}
+    <div class="service-text">{{ s }}</div>
+    {% endfor %}
   </div>
 
   <!-- CONFERENCES & SCHOOLS -->
   <div class="cv-section" style="--delay:0.57s">
     <div class="cv-section-head">Schools &amp; Conferences</div>
+    {% for conf in experience.conferences %}
+    <div class="service-text">{{ conf }}</div>
+    {% endfor %}
   </div>
 
   <!-- FOOTER -->
   <div style="margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;">
     <span style="font-family:'Syne Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:var(--dust);">
-      Last updated February 2026
+      Last updated {{ build_time }}
     </span>
+    {% if cv_pdf_exists %}
     <a href="assets/pdf/cv.pdf" download class="btn-pdf" style="font-size:0.55rem;padding:0.5rem 1rem;">
       <svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
       Download PDF
     </a>
+    {% endif %}
   </div>
 
 </div><!-- /cv-wrap -->
