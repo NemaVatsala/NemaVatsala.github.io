@@ -1,0 +1,63 @@
+# ─── PROFILE ────────────────────────────────────────────
+# Edit this file to update your personal information.
+
+name: Vatsala Nema
+photo: assets/img/profile.jpg   # drop your photo here; any jpg/png works
+tagline: Towards a science of vision, mind & machine
+status: PhD Student  # e.g. PhD Student, Postdoc, PhD Applicant
+institution: Johns Hopkins University
+department: Cognitive Science
+location: Baltimore, US
+advisor:
+  name: Prof. Leyla Isik
+  url: https://isiklab.org
+
+bio:
+  - >
+    I am a Cognitive Science PhD student at Johns Hopkins University, working with
+    <strong>Prof. Leyla Isik</strong>. I am fascinated by how intelligent systems—biological and
+    artificial—learn to see and understand the world. My research sits at the intersection of
+    <strong>mechanistic interpretability</strong>, <strong>visual psychophysics</strong>, and
+    <strong>multimodal AI</strong>.
+  - >
+    My journey began with a BS-MS at IISER Bhopal in Electrical Engineering & Computer Science.
+    Before JHU, I spent a year as Lab Manager at Brown's Serre Lab with Prof. Thomas Serre,
+    and worked with Prof. Mirta Galesic at the Santa Fe Institute and Prof. Vineeth Balasubramanian
+    at IIT Hyderabad.
+  - >
+    A recurring thread: I am fascinated by <strong>what features and abstractions</strong> guide
+    recognition and decision-making, and how we can design AI systems more aligned with human
+    perception. I aspire to pursue an academic career and become a professor.
+
+education:
+  - degree: PhD, Cognitive Science
+    institution: Johns Hopkins University
+    year: "2025 –"
+  - degree: BS-MS, Electrical Engineering & Computer Science
+    institution: IISER Bhopal
+    gpa: "8.01/10"
+    year: "2019 – 2024"
+
+interests:
+  - Cognitive Science
+  - Computer Vision
+  - Explainable AI
+  
+
+service:
+  - "Reviewer: CVPR'26, NeurIPS'24, ICML'24 MechInterp"
+  - "NAACL'24/'25 (Queer in AI), AISTATS'23, CVPR'24"
+
+skills:
+  languages: [Python, C, Java, R]
+  frameworks: [PyTorch, TensorFlow, CUDA, Keras]
+  tools: [Bash, MySQL, MATLAB]
+
+contact:
+  email: vatsala.nema@gmail.com
+  website: https://NemaVatsala.com
+  github: NemaVatsala
+  linkedin: vatsala-nema
+  twitter: "@NemaVatsala"          # leave blank to hide
+
+

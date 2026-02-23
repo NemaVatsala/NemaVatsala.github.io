@@ -1,0 +1,46 @@
+# ─── PUBLICATIONS ───────────────────────────────────────
+# Add/edit papers here. Fields:
+#   title, authors, venue, year, status, badge, url, abstract (optional)
+# status: published | oral | workshop | preprint | inprep
+# badge label is shown in the UI (Oral, Paper, In Prep, etc.)
+
+- title: "Color Bias: A Mechanistic Analysis"
+  authors:
+    - Vatsala Nema
+    - Vineeth Balasubramanian
+  venue: "CCN'24 · ICML'24 QinAI Workshop"
+  year: 2024
+  status: oral
+  badge: Oral
+  url: ""   # link to paper/arxiv
+  abstract: >
+    We analyze the role of color as a primary cue in vision models, developing a causal
+    graph-based method and rank-based metric to assess model decision-making under cue conflict.
+
+- title: "Modeling Neural Dynamics Using Periodic Structured State Space Model"
+  authors:
+    - Pranjal Garg
+    - Vatsala Nema
+  venue: "NeurIPS'24 WiML · Neuromonster'25"
+  year: 2024
+  status: workshop
+  badge: Paper
+  url: ""
+  abstract: >
+    Applied periodic structured state-space models to model hippocampal neural dynamics
+    for non-spatial stimuli.
+
+- title: "Mapping Belief Dynamics in Interacting Online Networks"
+  authors:
+    - Vatsala Nema
+    - Aayushi Vishnoi
+    - Mirta Galesic
+  venue: "Manuscript in Preparation"
+  year: 2025
+  status: inprep
+  badge: In Prep
+  url: ""
+  abstract: >
+    A theoretical network-science framework to analyze the formation and spread of beliefs
+    in online social networks.
+

@@ -1,0 +1,294 @@
+%% Vatsala Nema  -Curriculum Vitae
+%% Compile with: pdflatex cv.tex
+
+\documentclass[10pt, letterpaper]{article}
+
+% ── Packages ──────────────────────────────────────────────
+\usepackage[
+  top=0.6in, bottom=0.6in,
+  left=0.75in, right=0.75in
+]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{fontawesome5}       % icons: email, phone, globe, linkedin, github
+\usepackage{lastpage}
+\usepackage{hyperref}           % hyperref LAST
+
+% ── Colours ───────────────────────────────────────────────
+\definecolor{accent}{HTML}{1a1535}   % deep ink
+\definecolor{muted}{HTML}{4a4468}    % soft text
+\definecolor{linkblue}{HTML}{0000EE}
+
+% ── Hyperlinks (after colors are defined) ─────────────────
+\hypersetup{
+  colorlinks = true,
+  urlcolor   = linkblue,
+  linkcolor  = linkblue,
+}
+
+% ── Section formatting ────────────────────────────────────
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries\color{accent}}  % format
+  {}{0pt}                                           % label, sep
+  {}                                                % before-code
+  [\vspace{2pt}\titlerule\vspace{4pt}]             % after-code (rule)
+
+\titlespacing{\section}{0pt}{10pt}{4pt}
+
+% ── List settings ─────────────────────────────────────────
+\setlist[itemize]{
+  leftmargin = 1.5em,
+  topsep     = 2pt,
+  itemsep    = 0pt,
+  parsep     = 0pt,
+  label      = {\small$\circ$},
+}
+
+% ── Page footer: "Vatsala Nema - Page X of 2" ────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\small Vatsala Nema - Page \thepage\ of \pageref{LastPage}}
+
+% ── Custom commands ───────────────────────────────────────
+
+% \entry{Role}{Org}{Location}{Date}
+% Original layout: Org bold top-left, Location top-right / Role italic below, Date bottom-right
+\newcommand{\entry}[4]{%
+  \vspace{4pt}
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \small\textbf{#2} & \small #3 \\
+    \small\textit{#1} & \small\textit{#4} \\
+  \end{tabularx}%
+}
+
+% \pubitem{num}{title}{authors}{venue}{badge}
+\newcommand{\pubitem}[5]{%
+  \vspace{3pt}\noindent
+  \textbf{#1.}~#2, #4 (#5)\\
+  \small Authors: #3
+  \vspace{3pt}%
+}
+
+% ─────────────────────────────────────────────────────────
+\begin{document}
+
+%% ── HEADER ───────────────────────────────────────────────
+\begin{center}
+  {\LARGE\bfseries\color{accent} Vatsala Nema}\\[6pt]
+  \small
+  \faEnvelope\;\href{mailto:vatsala.nema@gmail.com}{vatsala.nema@gmail.com}\quad
+  \faPhone\;1 401 212 8484\quad
+  \faGlobe\;\href{https://nemavats.github.io}{NemaVatsala.com}\quad
+  \faLinkedin\;\href{https://linkedin.com/in/vatsala-nema}{vatsala-nema}\quad
+  \faGithub\;\href{https://github.com/NemaVatsala}{NemaVatsala}
+\end{center}
+
+\vspace{4pt}
+
+%% ── EDUCATION ────────────────────────────────────────────
+\section{Education}
+
+\vspace{4pt}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+  \small\textbf{BS-MS: Indian Institute of Science Education and Research Bhopal}
+    & \small\textit{Sept 2019 – May 2024} \\
+  \small Major: Electrical Engineering \& Computer Science,
+    Minor: Data Science \& Engineering
+    & \small Bhopal, IN \\
+\end{tabularx}
+
+\begin{itemize}
+  \item \textbf{Coursework:} Data Structures and Algorithms, Computer Organization,
+        Operating Systems, Computer Networks, Econometrics, Multivariable Calculus,
+        Probability \& Statistics, Deep Learning, Natural Language Processing,
+        Computer Vision, Intelligent Robotics, Network Science, Information Theory
+  \item \textbf{Relevant Course Projects:}
+        Navigational Affordances in the Human Visual System,
+        Wordle Solving bot using information theory,
+        Sarcasm detection,
+        \href{}{Dynamic graph based MARL network (Bachelors Thesis)}
+\end{itemize}
+
+%% ── RESEARCH INTERESTS ───────────────────────────────────
+\section{Research Interests}
+
+\noindent Cognitive Science, Computer Vision, Explainable AI
+
+%% ── PUBLICATIONS ─────────────────────────────────────────
+\section{Publications}
+
+\pubitem{1}
+  {Color bias: A mechanistic Analysis}
+  {Vatsala Nema, Vineeth Balasubramanian \href{https://drive.google.com/file/d/1amkoCZ1nb8eMkr0ds2knJ-0pEdPLBn-e/view?usp=sharing}{Presentation}}
+  {CCN'24, ICML'24 QinAI Workshop (Oral), Aug 2024}
+  {Oral}
+
+\pubitem{2}
+  {Modeling neural dynamics using periodic structured state space model}
+  {Pranjal Garg, Vatsala Nema \href{https://drive.google.com/file/d/1amkoCZ1nb8eMkr0ds2knJ-0pEdPLBn-e/view?usp=sharing}{Paper}}
+  {NeurIPS'24 WiML, Neuromonster'25}
+  {Paper}
+
+\pubitem{3}
+  {Mapping Belief Dynamics in Interacting online Networks}
+  {Aayushi Vishnoi, Vatsala Nema, Mirta Galesic \href{https://drive.google.com/file/d/1amkoCZ1nb8eMkr0ds2knJ-0pEdPLBn-e/view?usp=sharing}{Report}}
+  {Manuscript in prep}
+  {In Prep}
+
+
+
+%% ── RESEARCH EXPERIENCE ──────────────────────────────────
+\section{Research Experience}
+
+\entry
+  {Lab Manager, Serre Lab \normalfont -Advised by \textbf{Prof.\ Thomas Serre}}
+  {Brown University}
+  {Providence, US}
+  {Sep 2024 – May 2025}
+\begin{itemize}
+  \item Developed a foveation-inspired approach to bio-plausible scale-invariant
+        models [Publication 4]
+  \item Helped design and perform visual psychophysics experiments for
+        spatial frequency-aligned models
+\end{itemize}
+
+\entry
+  {MS Thesis, MLV Lab \normalfont -Advised by \textbf{Dr.\ Vineeth Balasubramanian}}
+  {Indian Institute of Technology, Hyderabad}
+  {Hyderabad, IN}
+  {Jun 2023 – Aug 2024}
+\begin{itemize}
+  \item Analyzed the role of primary cues—color in shape-texture within vision
+        models and developed a causal graph-based method to evaluate other cues
+        in conjunction [Publication 1]
+  \item Developed a method to measure polysemanticity in multimodal models via
+        automatic circuit discovery
+\end{itemize}
+
+\entry
+  {BS Thesis, Moon Lab \normalfont -Advised by \textbf{Dr.\ Sujit PB}}
+  {IISER Bhopal}
+  {Bhopal, IN}
+  {Jan 2023 – Jun 2023}
+\begin{itemize}
+  \item Built a dynamic GNN for centralized training–decentralized execution
+        in persistent visual modeling
+\end{itemize}
+
+\entry
+  {Research Affiliate \normalfont -Advised by \textbf{Dr.\ Mirta Galesic}}
+  {Santa Fe Institute}
+  {Remote}
+  {Dec 2023 – Nov 2024}
+\begin{itemize}
+  \item Developed a theoretical framework to analyze belief dynamics in online
+        social networks [Publication 3]
+\end{itemize}
+
+%% ── RESEARCH INTERNSHIPS ─────────────────────────────────
+\section{Research Internships}
+
+\entry
+  {Open Source Contributor \normalfont - Advised by Dr.\ Raymond Cassani}
+  {INCF \& MathWorks}
+  {Remote}
+  {May 2023}
+\begin{itemize}
+  \item Brainstorm toolkit development
+  \item ICA for MEG/EEG, EEG Data Standardization
+\end{itemize}
+
+\entry
+  {Research Intern \normalfont - Advised by Dr.\ Vinay Ramnath}
+  {Siemens R\&D Center}
+  {Bangalore, IN}
+  {Jan 2023 – Jun 2023}
+\begin{itemize}
+  \item Explained surrogate model dynamics using natural language terms
+\end{itemize}
+
+\entry
+  {MITACS Globalink Research Intern \normalfont -Advised by Dr.\ Sharif Sadaf}
+  {Université Institut National de la Recherche Scientifique—Varennes}
+  {Montréal, CA}
+  {May 2022 – Aug 2022}
+\begin{itemize}
+  \item Brain-inspired Artificial Cognitive Processor for next-gen AI
+\end{itemize}
+
+\entry
+  {Research Intern, CogTech Lab \normalfont -Advised by Dr.\ Sumitava Mukherjee}
+  {Indian Institute of Technology Delhi}
+  {Remote}
+  {May 2021}
+\begin{itemize}
+  \item Designed and performed a time-based gain/loss aversion study;
+        revealed bias in loss aversion metrics
+\end{itemize}
+
+%% ── ACADEMIC SERVICE ─────────────────────────────────────
+\section{Academic Service}
+
+\begin{itemize}
+  \item NeurIPS'24 (UniReps, WiML Workshop Reviewer)
+  \item ICML'24 (Mechanistic Interpretability Workshop Reviewer)
+  \item NAACL'24 \& NAACL'25 (Queer in AI Workshop Reviewer)
+  \item AISTATS, CVPR (Sub-reviewer, 2023)
+\end{itemize}
+
+%% ── SKILLS ───────────────────────────────────────────────
+\section{Skills}
+
+\begin{tabularx}{\linewidth}{@{} l X @{}}
+  \textbf{Languages:}  & Python, C, Java, R \\[2pt]
+  \textbf{Software:}   & Bash, MySQL, MATLAB \\[2pt]
+  \textbf{Frameworks:} & CUDA, PyTorch, Tensorflow, Keras \\
+\end{tabularx}
+
+%% ── AWARDS ───────────────────────────────────────────────
+\section{Awards}
+
+\begin{itemize}
+  \item MITACS scholarship for summer research at Université INRS
+  \item Travel Grant recipient to attend NeurIPS'24, CoSyNe'24,
+        Google Research Week 2023, ACML 2022, LOGML, and SFI Complexity school.
+  \item State Bank of India undergraduate scholarship (5 years)
+  \item Selected for Bernstein Center's pre-doctoral program at TU Berlin (2024)
+  \item Runner-up, Allen NLP Hackathon
+  \item Finalist, Curveball Entrepreneurship Competition (Agroventures)
+\end{itemize}
+
+%% ── CONFERENCES & SCHOOLS ────────────────────────────────
+\section{Conferences \& Schools attended}
+
+\begin{itemize}
+  \item NeurIPS'24, CODS COMAD'24, ACML '22
+  \item SFI Complexity Global School '23, LOGML Summer school'25
+  \item Deep Learning Summer School, Neuromatch Academy
+\end{itemize}
+
+%% ── STUDENT LEADERSHIP ───────────────────────────────────
+\section{Student Leadership}
+
+\begin{tabularx}{\linewidth}{@{} X l l r @{}}
+  \textbf{Chrysalis}                   & Chief Editor   & Bhopal & 2021-22 \\[2pt]
+  \textbf{Student Development Council} & Vice Secretary & Bhopal & 2021-22 \\
+\end{tabularx}
+
+%% ── FOOTER ───────────────────────────────────────────────
+\vfill
+\begin{center}
+  \small\color{muted}
+  Last updated in July 2025
+\end{center}
+
+\end{document}
