@@ -4,7 +4,7 @@ build.py — Portfolio site generator
 Inspired by al-folio's data-driven approach.
 
 Usage:
-    python build.py              # builds to docs/index.html
+    python build.py              # builds to output/index.html
     python build.py --watch      # rebuilds on file changes
     python build.py --serve      # builds + launches local dev server
 
@@ -31,7 +31,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 ROOT       = Path(__file__).parent
 DATA_DIR   = ROOT / "data"
 TMPL_DIR   = ROOT / "templates"
-OUT_DIR    = ROOT / "docs"
+OUT_DIR    = ROOT / "output"
 ASSETS_DIR = ROOT / "assets"
 
 
@@ -85,7 +85,7 @@ def preprocess_photo(src: Path, dst: Path):
 
 
 def prepare_assets():
-    """Copy assets/ to docs/assets/, processing the profile photo if present."""
+    """Copy assets/ to output/assets/, processing the profile photo if present."""
     if not ASSETS_DIR.exists():
         return
 
@@ -121,7 +121,7 @@ def load_data() -> dict:
 # ── Build ──────────────────────────────────────────────────
 
 def build(verbose: bool = True) -> Path:
-    """Render the Jinja2 template with loaded data and write docs."""
+    """Render the Jinja2 template with loaded data and write output."""
     OUT_DIR.mkdir(exist_ok=True)
 
     data = load_data()
@@ -129,7 +129,7 @@ def build(verbose: bool = True) -> Path:
     missing = required - set(data.keys())
     if missing:
         print(f"  ✗  Missing data files: {missing}", file=sys.stderr)
-        sys.exit(1)# REPLACE everything from env = Environment(...) to return out_path WITH:
+        sys.exit(1)
 
     env = Environment(
         loader=FileSystemLoader(str(TMPL_DIR)),
@@ -138,22 +138,32 @@ def build(verbose: bool = True) -> Path:
         lstrip_blocks=True,
     )
 
+    # Shared context for all pages
     now = datetime.now()
     ctx = dict(
         **data,
         build_year=now.year,
         build_time=now.strftime("%B %Y"),
         portrait_exists=(ASSETS_DIR / "img" / "portrait.svg").exists(),
+        portrait_gif_exists=(ASSETS_DIR / "img" / "portrait.gif").exists(),
         cv_pdf_exists=(ASSETS_DIR / "pdf" / "cv.pdf").exists(),
     )
 
+    # ── index.html ──────────────────────────────────
     out_path = OUT_DIR / "index.html"
-    out_path.write_text(env.get_template("index.html.jinja").render(**ctx), encoding="utf-8")
+    out_path.write_text(
+        env.get_template("index.html.jinja").render(**ctx),
+        encoding="utf-8",
+    )
     if verbose:
         print(f"  ✓  Built → {out_path}  ({out_path.stat().st_size/1024:.1f} KB)")
 
+    # ── cv.html ─────────────────────────────────────
     cv_path = OUT_DIR / "cv.html"
-    cv_path.write_text(env.get_template("cv.html.jinja").render(**ctx), encoding="utf-8")
+    cv_path.write_text(
+        env.get_template("cv.html.jinja").render(**ctx),
+        encoding="utf-8",
+    )
     if verbose:
         print(f"  ✓  Built → {cv_path}  ({cv_path.stat().st_size/1024:.1f} KB)")
 
@@ -163,6 +173,7 @@ def build(verbose: bool = True) -> Path:
         print(f"  ℹ  No PDF found — drop your CV at assets/pdf/cv.pdf to enable download")
 
     return out_path
+
 
 # ── Watch mode ─────────────────────────────────────────────
 
@@ -198,8 +209,9 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *args): pass
     def log_request(self, *args): pass
 
-# ADD this new function above serve()
+
 def find_free_port(start: int = 8000, attempts: int = 20) -> int:
+    """Find a free port starting from `start`."""
     import socket
     for port in range(start, start + attempts):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -212,13 +224,11 @@ def find_free_port(start: int = 8000, attempts: int = 20) -> int:
 
 
 def serve(port: int = 8000):
-    os.chdir(OUT_DIR)
     port = find_free_port(port)
+    os.chdir(OUT_DIR)
     server = http.server.HTTPServer(("", port), QuietHandler)
-    
     print(f"  🌐  Serving at http://localhost:{port}")
     server.serve_forever()
-
 
 
 # ── CLI ────────────────────────────────────────────────────
@@ -246,9 +256,8 @@ def main():
         except KeyboardInterrupt:
             print("\n  Stopped.")
     else:
-        print(f"  Done. Open docs/index.html in your browser.\n")
+        print(f"  Done. Open output/index.html in your browser.\n")
 
 
 if __name__ == "__main__":
     main()
-
