@@ -1,3 +1,15 @@
 your-ssh-key-filename
 *.pem
 *.key
+
+# macOS
+.DS_Store
+
+# Python virtual environments
+.venv*/
+illuminate/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out

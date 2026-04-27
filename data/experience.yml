@@ -5,25 +5,23 @@ positions:
   - role: PhD Student
     org: "Isik Lab · Johns Hopkins University"
     location: "Baltimore, US"
-    date: "2025 –"
+    date: " Jan 2026 –"
     detail: >
-      Advised by Prof. Leyla Isik. Research on visual intelligence, neural representations,
-      and the interface between human and machine perception.
+      Advised by Prof. Leyla Isik. 
 
   - role: Lab Manager
     org: "Serre Lab · Brown University"
     location: "Providence, US"
     date: "Sep 2024 – May 2025"
     detail: >
-      Foveation-inspired bio-plausible scale-invariant models; psychophysics experiments
-      and spatial frequency alignment between humans and models.
+      Foveation-inspired bio-plausible scale-invariant models;
+      Psychophysics experiments and spatial frequency alignment between humans and models.
 
 
 awards:
   - MITACS Globalink Scholarship for summer research at INRS Montréal
-  - "Travel grants: NeurIPS'24, CoSyNe'24, Google Research Week 2023, ACML 2022, LOGML, SFI Complexity School"
+  - "Travel grants: NeurIPS'24, Google Research Week 2023, ACML 2022, LOGML, SFI Complexity School"
   - State Bank of India Undergraduate Scholarship (5 years)
-  - "Selected for Bernstein Center Pre-doctoral Program · TU Berlin 2024"
   - Runner-up · Allen NLP Hackathon
   - Finalist · Curveball Entrepreneurship Competition (Agroventures)
 

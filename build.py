@@ -4,7 +4,7 @@ build.py — Portfolio site generator
 Inspired by al-folio's data-driven approach.
 
 Usage:
-    python build.py              # builds to docs/index.html
+    python build.py              # builds index.html + cv.html to repo root
     python build.py --watch      # rebuilds on file changes
     python build.py --serve      # builds + launches local dev server
 
@@ -31,7 +31,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 ROOT       = Path(__file__).parent
 DATA_DIR   = ROOT / "data"
 TMPL_DIR   = ROOT / "templates"
-OUT_DIR    = ROOT / "docs"
+OUT_DIR    = ROOT
 ASSETS_DIR = ROOT / "assets"
 
 
@@ -100,6 +100,8 @@ def prepare_assets():
         dst.parent.mkdir(parents=True, exist_ok=True)
 
         # Special handling: preprocess the profile photo
+        if src.resolve() == dst.resolve():
+            continue
         if rel == Path("img/profile.jpg") or rel == Path("img/profile.png"):
             preprocess_photo(src, dst.with_suffix(".jpg"))
         else:
@@ -256,7 +258,7 @@ def main():
         except KeyboardInterrupt:
             print("\n  Stopped.")
     else:
-        print(f"  Done. Open docs/index.html in your browser.\n")
+        print(f"  Done. Open index.html in your browser.\n")
 
 
 if __name__ == "__main__":

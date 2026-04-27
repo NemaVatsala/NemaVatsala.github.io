@@ -7,18 +7,6 @@
     models. Developed causal graph methods and rank-based metrics to quantify bias—revealing
     links between architecture and human perceptual strategies.
 
-- title: "Mechanistic Interpretability"
-  desc: >
-    Localizing circuits and attribute-based activations in multimodal models like CLIP.
-    Building frameworks to unlearn spurious concepts via dictionary-based pruning,
-    making models more controllable and robust.
-
-- title: "Bio-Plausible Vision Models"
-  desc: >
-    Developing foveation-inspired approaches for scale-invariant recognition in the HMAX
-    framework. Conducting psychophysical experiments to align model and human preferences
-    for spatial frequency bands.
-
 - title: "Neural Dynamics Modelling"
   desc: >
     Applied linear state-space models to model hippocampal neural dynamics for non-spatial
@@ -31,7 +19,3 @@
     of beliefs in online social networks, in collaboration with Prof. Mirta Galesic at the
     Santa Fe Institute.
 
-- title: "Multi-Agent RL & Graph Networks"
-  desc: >
-    Built a dynamic GNN for centralized training with decentralized execution in persistent
-    visual modeling—Bachelor's thesis at IISER Bhopal's Moon Lab under Dr. Sujit PB.
